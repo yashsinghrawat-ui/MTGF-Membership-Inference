@@ -9,14 +9,6 @@ Architecture follows Nichol & Dhariwal "Improved DDPM" (2021) with:
   • True residual shortcuts         (1×1 conv projection when channels differ)
   • Multi-head self-attention at 8×8 and 16×16 resolutions
   • Bottleneck: attn-ResBlock sandwich at lowest (8×8) resolution
-
-Why this matters for MIA:
-  A better-trained DDPM memorises training samples more sharply, widening the
-  in/out loss gap that LiRA and Strong LiRA exploit.  Attention + AdaGN are the
-  two biggest drivers of that improved per-sample memorisation.
-
-SimpleUNet is kept as an alias of ImprovedUNet for backwards compatibility
-with existing train.py / modal_train.py imports.
 """
 
 import math

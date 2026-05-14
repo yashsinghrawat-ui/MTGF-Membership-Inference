@@ -1,16 +1,3 @@
-"""
-train.py — DDPM training loop (AMP-accelerated).
-Matches the signature expected by modal_train.py:
-    model, history = train_model(dataset, epochs, cfg, device, model_name="")
-
-Key optimisations vs baseline:
-  • AMP (torch.cuda.amp) — 2–2.5× throughput on H100 via FP16 matmuls
-  • AdamW + weight_decay=1e-4 — better regularisation than plain Adam
-  • Cosine annealing LR — smoother convergence, higher final quality
-  • non_blocking GPU transfers + set_to_none=True — reduces CPU↔GPU sync stalls
-  • Reduced print frequency (every 20 epochs) — cuts I/O overhead on Modal logs
-"""
-
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -21,18 +8,7 @@ from .model import ImprovedUNet, make_schedule
 
 def train_model(dataset, epochs: int, cfg: dict, device: torch.device,
                 model_name: str = "model"):
-    """
-    Train an ImprovedUNet DDPM on `dataset` for `epochs` epochs.
-
-    Speed on H100 (AMP=ON, batch=128):
-      ~2.5 sec/epoch  →  200 epochs ≈ 8 min  ($0.53)
-                      →  500 epochs ≈ 21 min ($1.38)
-
-    Returns
-    -------
-    model   : trained ImprovedUNet (on `device`)
-    history : list of per-epoch mean loss values
-    """
+   
     T         = cfg["T"]
     alpha_bar = make_schedule(T, cfg["beta_start"], cfg["beta_end"], device=device)
 
@@ -52,7 +28,6 @@ def train_model(dataset, epochs: int, cfg: dict, device: torch.device,
         eta_min = cfg["lr"] * 0.1,   # decay to 10% of initial LR
     )
 
-    # AMP: FP16 forward + backward, FP32 param update — 2× memory, 2–2.5× speed
     use_amp = (device.type == "cuda")
     scaler  = torch.cuda.amp.GradScaler(enabled=use_amp)
 
@@ -74,7 +49,6 @@ def train_model(dataset, epochs: int, cfg: dict, device: torch.device,
         total_loss, n = 0.0, 0
 
         for x, _ in loader:
-            # non_blocking=True overlaps H2D transfer with previous GPU work
             x  = x.to(device, non_blocking=True)
             bs = x.size(0)
             t  = torch.randint(0, T, (bs,), device=device)
