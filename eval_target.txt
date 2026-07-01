@@ -1,0 +1,40 @@
+@torch.no_grad()
+def eval_target(x_cpu, timesteps, n_queries=1, use_flip=False,
+                batch_size=256, desc='eval', checkpoint_path=None):
+    """
+    Evaluate target model losses.
+    use_flip=True: averages loss over original + horizontally flipped image.
+                   Paper's Strong LiRA uses this to reduce variance.
+    """
+    N      = x_cpu.shape[0]
+    result = np.zeros((len(timesteps), N), dtype=np.float32)
+    model.eval()
+    for ti, t_val in enumerate(tqdm(timesteps, desc=desc)):
+        t_val = min(t_val, alpha_bar.shape[0] - 1)
+        ab    = alpha_bar[t_val]
+        col   = []
+        for start in range(0, N, batch_size):
+            xb       = x_cpu[start:start+batch_size].to(device)
+            bs       = xb.size(0)
+            t_tensor = torch.full((bs,), t_val, device=device, dtype=torch.long)
+            q_losses = []
+            for _ in range(n_queries):
+                noise = torch.randn_like(xb)
+                xt    = ab.sqrt() * xb + (1 - ab).sqrt() * noise
+                pred  = model(xt, t_tensor)
+                lp    = ((pred - noise) ** 2).mean(dim=[1, 2, 3])
+
+                if use_flip:
+                    # Horizontal flip augmentation: same noise, flipped image
+                    xb_f   = torch.flip(xb, dims=[-1])
+                    xt_f   = ab.sqrt() * xb_f + (1 - ab).sqrt() * noise
+                    pred_f = model(xt_f, t_tensor)
+                    lp_f   = ((pred_f - noise) ** 2).mean(dim=[1, 2, 3])
+                    lp     = (lp + lp_f) / 2.0   # average original + flipped
+
+                q_losses.append(lp)
+            col.append(torch.stack(q_losses).mean(0).cpu().numpy())
+        result[ti] = np.concatenate(col)
+        if checkpoint_path:
+            np.save(checkpoint_path, result)
+    return result

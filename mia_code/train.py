@@ -35,10 +35,10 @@ def train_model(dataset, epochs: int, cfg: dict, device: torch.device,
         dataset,
         batch_size        = cfg["batch_size"],
         shuffle           = True,
-        num_workers       = 4,          # more workers to keep GPU fed
+        num_workers       = 0,          # more workers to keep GPU fed
         pin_memory        = True,
         drop_last         = True,
-        persistent_workers= True,       # avoids worker restart overhead
+        persistent_workers= False,       # avoids worker restart overhead
     )
 
     print_every = cfg.get("print_every", 20)   # log every N epochs

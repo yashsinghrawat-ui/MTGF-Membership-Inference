@@ -84,3 +84,4 @@ modal_train_resume.py
 upload_to_new_volume.py
 volume_check.txt
 volume_check2.txt
+data/cifar-10-python.tar.gz

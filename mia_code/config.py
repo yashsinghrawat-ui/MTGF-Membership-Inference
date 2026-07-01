@@ -2,21 +2,21 @@ CFG = dict(
     # ------------------------------------------------------------------
     # Universe & splits
     # ------------------------------------------------------------------
-    n_total       = 50000,   # entire CIFAR-10 train set is the universe
+    n_total       = 5000,   # entire CIFAR-10 train set is the universe
     target_frac   = 0.5,     # target trains on 25K (random 50% of universe)
-    n_eval        = 2000,    # member probe samples
-    n_nonmember   = 2000,    # non-member probe samples
+    n_eval        = 500,    # member probe samples
+    n_nonmember   = 500,    # non-member probe samples
 
     # ------------------------------------------------------------------
-    n_shadow      = 16,      # 16 shadows => ~8 N_IN + ~8 N_OUT per probe sample
+    n_shadow      = 5,      # 16 shadows => ~8 N_IN + ~8 N_OUT per probe sample
     shadow_frac   = 0.5,     # each shadow trains on 25K of the same universe
 
     # ------------------------------------------------------------------
     # Training hyper-params  
     # ------------------------------------------------------------------
-    target_epochs = 800,     
-    shadow_epochs = 300,    
-    batch_size    = 128,     
+    target_epochs = 50,     
+    shadow_epochs = 25,    
+    batch_size    = 16,     
     lr            = 2e-4,    
     weight_decay  = 1e-4,    
     grad_clip     = 1.0,

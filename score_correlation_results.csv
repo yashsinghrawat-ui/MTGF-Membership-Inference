@@ -1,0 +1,11 @@
+ScoreA,ScoreB,PearsonR
+-raw_loss,high_mean_500,-0.5851724297348333
+-raw_loss,mid_mean_400,-0.6446013655507222
+-raw_loss,mid_mean_50,-0.8239124697041905
+-raw_loss,high_mean_300,-0.7363250788565958
+-raw_loss,mid_mean_500,-0.47570068856179454
+-raw_loss,mid_mean_100,-0.8723141189724714
+-raw_loss,high_mean_750,-0.5466491663164462
+-raw_loss,low_mean_300,-0.5155090887661871
+-raw_loss,high_mean_150,-0.9067897186241434
+-raw_loss,high_mean_400,-0.6370592806078155
