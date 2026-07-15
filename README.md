@@ -47,6 +47,11 @@ or metrics.
 ## Quick Start
 
 ```bash
+<<<<<<< HEAD
+=======
+## Quick Start
+
+>>>>>>> 33c511b (Improve README documentation)
 git clone https://github.com/yashsinghrawat-ui/MTGF-Membership-Inference.git
 cd MTGF-Membership-Inference
 pip install -r requirements.txt
