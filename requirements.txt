@@ -4,3 +4,6 @@ tqdm
 numpy
 scipy
 scikit-learn
+pandas
+matplotlib
+Pillow

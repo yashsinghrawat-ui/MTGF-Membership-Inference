@@ -1,87 +1,66 @@
-# Virtual Environment
-myenv/
-venv/
-env/
-ENV/
-.venv
-mia-sms/
-mia-sms
-
-# Python cache and compiled files
+# Python
 __pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-pip-wheel-metadata/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
+*.pyc
+*.pyo
+*.pyd
 
-# IDE and editor files
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
+# Virtual Environment
+.venv/
+venv/
+
+# macOS
 .DS_Store
-Thumbs.db
 
-# Jupyter Notebook
+# Jupyter
 .ipynb_checkpoints/
-*.ipynb_checkpoints
 
-# Environment variables
-.env
-.env.local
-.env.*.local
+# Logs
+logs/
 
-# OS files
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-
-# Model and data files (optional - comment out if you want to track these)
+# Model Checkpoints
+checkpoints/
 *.pth
-*.npy
-*.pkl
-*.pickle
 
-# Logs and temporary files
-*.log
+# Generated Outputs
+output/
+graphs/
+results/*.png
+results/*.jpg
+
+# Generated CSVs
+results/*.csv
+
+# Temporary
 *.tmp
-*.bak
-*.swp
-*.png
-*~
+*.log
 
-# IDE workspace settings
-.vscode/settings.json
+members/
 
-# Specific project files to ignore
-debug_volume.py
-download_from_modal.py
-eval_colab.ipynb
-mia_diffusion.py
-modal_train_resume.py
-upload_to_new_volume.py
-volume_check.txt
-volume_check2.txt
+output/
+figures/*.pdf
+figures/*.svg
+
+members/
+checkpoints/
+*.pth
+__pycache__/
+*.pyc
+
+# Dataset
 data/cifar-10-python.tar.gz
+data/cifar-10-batches-py/
+
+# Sample images
+data/sample_images/
+
+# Model checkpoints
+*.pth
+checkpoints/
+
+# Generated results
+results/shadow_losses.npy
+results/shadow_membership.npy
+
+# Python cache
+__pycache__/
+*.pyc
