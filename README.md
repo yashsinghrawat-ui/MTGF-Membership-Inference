@@ -1,7 +1,6 @@
-# SMS-LiRA / MTGF
+# MTGF: Multi-Timestep Gradient Features for Membership Inference Attacks on Diffusion Models
 
-Professional, reproducible research framework for **Membership Inference Attacks
-against Diffusion Models** on CIFAR-10.
+Professional and reproducible implementation of Multi-Timestep Gradient Features (MTGF) for Membership Inference Attacks against Diffusion Models on the CIFAR-10 dataset.
 
 The pipeline studies membership leakage from a DDPM target model using:
 
@@ -48,8 +47,8 @@ or metrics.
 ## Quick Start
 
 ```bash
-git clone <repo-url>
-cd SMS-LiRA
+git clone https://github.com/yashsinghrawat-ui/MTGF-Membership-Inference.git
+cd MTGF-Membership-Inference
 pip install -r requirements.txt
 python run_pipeline.py
 ```
